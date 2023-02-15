@@ -32,7 +32,8 @@ $ npm i -g pnpm
 $ pnpm install
 ```
 
-- Generate prisma files based on the schema
+- Generate prisma files based on the schema (sometimes prisma generates the output folder inconsistently so that the import instead of .prisma/client is prisma/prisma-client if something like this happens just fix the import at prisma.service.ts - but it should not happen anymore - just in case =) )
+
 ```bash
 $ npx prisma generate
 ```
@@ -42,6 +43,8 @@ $ npx prisma generate
 ```bash
 $ docker-compose -f docker-compose.db.yml up -d
 ```
+
+I added a simple seed to add some users (1 customer, 1 professional, 1 admin), it runs automatically after the migrate command
 
 - Run migration
 ```bash
