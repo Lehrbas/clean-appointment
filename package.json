@@ -61,7 +61,7 @@
     "webpack": "^5.75.0"
   },
   "prisma": {
-    "schema": "./src/infra/database/prisma/schema.prisma"
+    "schema": "./prisma/schema.prisma"
   },
   "jest": {
     "moduleDirectories": [
