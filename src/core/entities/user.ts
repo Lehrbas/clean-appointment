@@ -23,4 +23,3 @@ export class User extends Entity {
   //   return this.props.role;
   // }
 }
-\
