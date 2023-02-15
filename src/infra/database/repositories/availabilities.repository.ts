@@ -27,7 +27,7 @@ export class AvailabilitiesRepository implements IAvailabilityRepository {
 
   // Bulk insert for availabilities
   public async saveMany(entities: Availability[]): Promise<AvailabilityDTO[]> {
-    const batchPayload = await this.prisma.availability.createMany({
+    await this.prisma.availability.createMany({
       data: entities.map((entity) => ({
         id: entity.getId(),
         startsAt: entity.getStartsAt(),
@@ -37,8 +37,8 @@ export class AvailabilitiesRepository implements IAvailabilityRepository {
     });
 
     // Map the batchPayload to an array of AvailabilityDTO objects
-    return entities.map((entity, i) => ({
-      id: batchPayload[i].id,
+    return entities.map((entity) => ({
+      id: entity.getId(),
       startsAt: entity.getStartsAt(),
       endsAt: entity.getEndsAt(),
       professionalId: entity.getProfessionalId(),

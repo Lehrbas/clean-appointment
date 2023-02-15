@@ -35,18 +35,6 @@ export class AvailabilityService {
 
       // We need to create an availability for each time range on the array availabilities of the DTO
       for (const availability of data.availabilities) {
-        const availabilityAlreadyExists =
-          await this.availabilitiesRepository.find({
-            professionalId: data.professionalId,
-            // We check if exists an availability with the same startsAt, we do not need to check if the endsAt is the same
-            // because the availability can be created with a different endsAt
-            startsAt: availability[0],
-          });
-
-        if (availabilityAlreadyExists.length > 0) {
-          throw Error('Availability already exists on database');
-        }
-
         // Create each availability and push it to the array of availabilities to be
         // passed to the saveMany method of the repository to be saved on database in bulk
 
