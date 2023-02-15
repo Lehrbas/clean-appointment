@@ -10,8 +10,16 @@ actual implementations or infrastructure. The application layer handles all our 
 decoupled from our infrastructure, which means that if in any moment in the future we would like to change DB, ORM's and alikes, frameworks and other types
 of infrastructure services we are able to do it without having to change anything in our application and domain layer, protecting our businnes rules.
 
-There is also a implementation of a factory pattern for creating the entities, which also helps with testing
+There is also a implementation of a factory pattern for creating the entities, which also helps with testing.
+
 The database was modeled using a Relational Star Scheme.
+
+As of the endpoints my original idea was to create authentication routing groups based on the user's role, so that the admin could access all endpoints for managing records, professional only the the /availability and maybe the /appointments GET, and the customer had access to /appointment POST/GET/UPDATE and /slots GET. Also /auth would be public. Unfortunately I could not make time for it, but the base for it is all done.
+
+Appointments have a 'status' propertie which is enumarated in the appointment-status.enum.ts file and there is further annotations about the system there.
+
+There is a bunch of improvements to be made that are basic of a real world project, like Logging, better Validation Pipes, All Exception Handling, Shadow Database for tests...
+Also I thought that would be nice to have a job scheduler and a ElasticSearch logs database, so that all old appointments could be replicated to this logs DB for further access and the "production" DB had a periodic job to keep it clean.
 
 ## Installation
 
@@ -20,7 +28,7 @@ The database was modeled using a Relational Star Scheme.
 # Via HTTPS
 $ git clone https://github.com/Lehrbas/clean-appointment.git
 
-#Via SSH
+# Via SSH
 $ git clone git@github.com:Lehrbas/clean-appointment.git
 ```
 
