@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  role      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([id, email])
+}
+
+model Professional {
+  id           String        @id @default(cuid())
+  name         String
+  field        String
+  userId       String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  Appointment  Appointment[]
+  Availability Availability[]
+
+  @@index([id, field, userId])
+}
+
+model Customer {
+  id          String       @id @default(cuid())
+  name        String
+  userId      String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  Appointment Appointment[]
+
+  @@index([id, userId])
+}
+
+model Appointment {
+  id             String        @id @default(cuid())
+  startsAt       DateTime
+  endsAt         DateTime
+  status         String
+  customer       Customer?     @relation(fields: [customerId], references: [id])
+  customerId     String        
+  professional   Professional? @relation(fields: [professionalId], references: [id])
+  professionalId String        
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([id, startsAt, endsAt, professionalId, customerId])
+}
+
+model Availability {
+  id             String        @id @default(cuid())
+  startsAt       DateTime
+  endsAt         DateTime
+  professional   Professional? @relation(fields: [professionalId], references: [id])
+  professionalId String        
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@index([id, professionalId, startsAt, endsAt])
+}
