@@ -74,9 +74,11 @@ export class SlotService {
           // Get the current time slot in the format 'hh:mm'
           const slot = this.formatInTimeZone(start, 'kk:mm', 'UTC');
 
-          // If the slot is unique, within the availability
-          if (!uniqueSlots.has(slot)) {
-            // Add the slot to the list of unique slots
+          // If the slot is unique, within the availability and there is not already a slot with the same time in the same date
+          if (
+            !uniqueSlots.has(slot) &&
+            !slotsList.slots[date]?.includes(slot)
+          ) {
             uniqueSlots.add(slot);
 
             // If the date is not already in the slotsList, add it as a key with an empty array value
