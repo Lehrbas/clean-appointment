@@ -26,6 +26,20 @@ export class CreateAvailabilityDTO {
   public availabilities: Array<Array<Date>>;
 }
 
+export class UpdateAvailabilityDTO {
+  @IsNotEmpty()
+  @IsString()
+  public id?: string;
+
+  @IsOptional()
+  @Type(() => Date)
+  public startsAt?: Date;
+
+  @IsOptional()
+  @Type(() => Date)
+  public endsAt?: Date;
+}
+
 export class AvailabilityFilterDTO {
   @IsOptional()
   @IsString()
