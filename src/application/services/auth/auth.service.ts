@@ -25,6 +25,7 @@ export class AuthService {
       UserFactory.create({
         email: data.email,
         password: hashedPassword,
+        role: data.role,
       }),
     );
 

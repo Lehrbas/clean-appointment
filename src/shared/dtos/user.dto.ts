@@ -12,6 +12,7 @@ export class UserDTO {
   public id: string;
   public email: string;
   public password: string;
+  public role: string;
   public createdAt?: Date;
   public updatedAt?: Date;
 }
@@ -25,9 +26,9 @@ export class CreateUserDTO {
   @IsString()
   public password: string;
 
-  // @IsNotEmpty()
-  // @IsEnum(Role, { message: 'Invalid role' })
-  // public role?: Role;
+  @IsNotEmpty()
+  @IsString()
+  public role: string;
 }
 
 export class UserFilterDTO {
@@ -44,7 +45,7 @@ export class UserFilterDTO {
   @Type(() => Date)
   public createdBetween?: [Date, Date];
 
-  // @IsOptional()
-  // @IsString()
-  // public role?: string;
+  @IsOptional()
+  @IsEnum(Role)
+  public role?: Role;
 }

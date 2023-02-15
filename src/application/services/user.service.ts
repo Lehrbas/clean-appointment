@@ -9,12 +9,12 @@ export class UserService {
   constructor(private usersRepository: IUserRepository) {}
 
   public async add(data: CreateUserDTO): Promise<UserDTO> {
-    const { email, password } = data;
+    const { email, password, role } = data;
 
     const hashedPassword = await PasswordHelper.hashPassword(password);
 
     const user = await this.usersRepository.save(
-      UserFactory.create({ email, password: hashedPassword }),
+      UserFactory.create({ email, password: hashedPassword, role }),
     );
 
     return user;

@@ -5,10 +5,11 @@ import { CreateUserDTO } from '@/shared/dtos';
 
 export class UserFactory {
   public static create(data: CreateUserDTO): User {
-    const { email, password } = data;
+    const { email, password, role } = data;
     return new User({
       email,
       password,
+      role,
     });
   }
 }

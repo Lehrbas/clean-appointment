@@ -1,10 +1,9 @@
-import { Role } from '@/core/enums/role.enum';
 import { IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class SignUpDTO {
   @IsNotEmpty()
   @IsString()
-  public role: Role;
+  public role: string;
 
   @IsNotEmpty()
   @IsString()

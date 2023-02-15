@@ -1,9 +1,9 @@
 import { Entity } from '../base/entity';
-import { Role } from '../enums/role.enum';
 
 export interface IUserProps {
   email: string;
   password: string;
+  role: string;
 }
 
 export class User extends Entity {
@@ -19,7 +19,7 @@ export class User extends Entity {
     return this.props.password;
   }
 
-  // public getRole() {
-  //   return this.props.role;
-  // }
+  public getRole() {
+    return this.props.role;
+  }
 }
