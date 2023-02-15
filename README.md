@@ -1,5 +1,5 @@
 ## Description
-DISCLAIMER: This application is a PoC and a challenge, it was done in a 'Hackathon' way over the course of only 5 days, so there's a lot of room for improvement. The logger service is not really implemented in the classes and exception handling at the moment is very poor. The focus of the project was creating a Clean Architecture PoC with the functionalities of the challenges.
+DISCLAIMER: This application is a PoC and a challenge, it was done in a 'Hackathon' way over the course of only 5 days, so there's a lot of room for improvement. The logger service is not really implemented in the classes and exception handling at the moment is very poor which can lead to some unexpected behavior. The focus of the project was creating a Clean Architecture PoC with the functionalities of the challenges. Also there are not any near the amount of unit tests and e2e tests necessary for a real world application.
 
 There are comments all over the code to explain functionalities or design choices.
 
@@ -9,6 +9,9 @@ In Clean Architecture we have a decoupled system, layering it in a way that the 
 actual implementations or infrastructure. The application layer handles all our use cases and services for the system, this layer is also
 decoupled from our infrastructure, which means that if in any moment in the future we would like to change DB, ORM's and alikes, frameworks and other types
 of infrastructure services we are able to do it without having to change anything in our application and domain layer, protecting our businnes rules.
+
+There is also a implementation of a factory pattern for creating the entities, which also helps with testing
+The database was modeled using a Relational Star Scheme.
 
 ## Installation
 
@@ -21,7 +24,7 @@ $ git clone https://github.com/Lehrbas/clean-appointment.git
 $ git clone git@github.com:Lehrbas/clean-appointment.git
 ```
 
-- I'm using pnpm because of the performance
+I'm using pnpm because of the performance
 - To install it:
 ```bash
 $ npm i -g pnpm
@@ -77,7 +80,7 @@ $ pnpm run start:dev
 - They all accept only a JSON body type request and the request properties are specified in their respective DTO's 
 - For the get methods all endpoints except /slots accept a empty {} JSON body and return all records or you can pass their properties as filters for querying
 
-- /users - body POST request example:
+- /api/users - body POST request example:
 ```
 {
 	"email": "pro@pro.com",
@@ -87,7 +90,7 @@ $ pnpm run start:dev
 ```
 Possible role values: "professional", "customer", "admin"
 
-- /customers - body POST request example:
+- /api/customers - body POST request example:
 ```
 {
 	"userId": "ec424642-4558-4b7e-902a-212b0a88a0c4",
@@ -95,7 +98,7 @@ Possible role values: "professional", "customer", "admin"
 }
 ```
 
-- /professionals - body POST request example:
+- /api/professionals - body POST request example:
 ```
 {
 	"userId": "53c9a779-ba8d-4ec4-bfe4-cbe1c2832c44",
@@ -105,16 +108,16 @@ Possible role values: "professional", "customer", "admin"
 ```
 
 
-- /slots - professionalId is required, but it also accepts a startsAt (not required) property so it filters all slots from startsAt date forward, ex:
+- /api/slots - GET - professionalId is required, but it also accepts a startsAt (not required) property so it filters all slots from startsAt date forward, ex:
 ```
 {
   professionalId: "d0081d0b-8ceb-4292-a37a-053aa840a263",
   startsAt: "2023-02-10"
 }
 ```
-- If no startsAt date is passed, it defaults to startOfToday()
+If no startsAt date is passed, it defaults to startOfToday()
 
-- /availabilities requires the professionalId and a list of availabilities which have the timerange for the available times of that day, ex:
+- /api/availabilities requires the professionalId and a list of availabilities which have the timerange for the available times of that day, ex:
 ```
 {
   professionalId: "d0081d0b-8ceb-4292-a37a-053aa840a263",
@@ -122,6 +125,17 @@ Possible role values: "professional", "customer", "admin"
     ["2023-02-13T06:30:00.101Z", "2023-02-13T12:00:00.101Z"],
     ["2023-02-14T05:30:00.101Z", "2023-02-14T10:30:00.101Z"],
     ]
+}
+```
+
+- /api/appointments POST example for creating an appointment
+
+```
+{
+	"startsAt": "2023-02-18T10:30:00.000Z",
+	"endsAt": "2023-02-18T11:30:00.000Z",
+	"customerId": "03c146a2-fc61-4fd0-bbf4-d1c3199a1a90",
+	"professionalId": "d0081d0b-8ceb-4292-a37a-053aa840a263"
 }
 ```
 
