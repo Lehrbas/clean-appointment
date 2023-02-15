@@ -39,13 +39,16 @@ export class SlotService {
         throw new Error('Professional Id does not exist on database');
       }
 
-      // Find the availabilities with the given filter
-      const availabilities = await this.availabilitiesRepository.find(filter);
+      // Find all professional availabilities with the given professionalId
+      const availabilities = await this.availabilitiesRepository.find({
+        professionalId: filter.professionalId,
+      });
 
-      // Find the appointments for the given professional and the current day
+      // Find the appointments for the given professional and the current day which have status AW or IP
       const appointments = await this.appointmentsService.find({
         professionalId: filter.professionalId,
-        startsAt: startOfToday(),
+        status: 'AW' || 'IP',
+        startsAt: filter.startsAt || startOfToday(),
       });
 
       // Initialize an object to store the slots
@@ -115,7 +118,6 @@ export class SlotService {
             }
 
             // Add the slot to the list of slots for the current date if its not the last 30 minutes of the availability
-
             if (end.getTime() - start.getTime() > 30 * 60 * 1000) {
               slotsList.slots[date].push(slot);
             }
