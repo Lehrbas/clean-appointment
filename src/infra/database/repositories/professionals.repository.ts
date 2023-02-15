@@ -2,7 +2,7 @@ import { IProfessionalRepository } from '@/application/ports/professionals.repos
 import { Professional } from '@/core/entities';
 import { ProfessionalDTO, ProfessionalFilterDTO } from '@/shared/dtos';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from 'prisma/prisma.service';
 
 @Injectable()
 export class ProfessionalsRepository implements IProfessionalRepository {

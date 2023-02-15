@@ -2,7 +2,7 @@ import { IAppointmentRepository } from '@/application/ports';
 import { Appointment } from '@/core/entities';
 import { AppointmentDTO, AppointmentFilterDTO } from '@/shared/dtos';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from 'prisma/prisma.service';
 
 @Injectable()
 export class AppointmentsRepository implements IAppointmentRepository {

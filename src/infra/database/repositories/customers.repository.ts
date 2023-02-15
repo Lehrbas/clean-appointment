@@ -1,7 +1,7 @@
 import { ICustomerRepository } from '@/application/ports';
 import { Customer } from '@/core/entities';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
+import { PrismaService } from 'prisma/prisma.service';
 import { CustomerDTO, CustomerFilterDTO } from '@/shared/dtos';
 
 @Injectable()
