@@ -1,5 +1,7 @@
 ## Description
-DISCLAIMER: This application is a PoC and a challenge, it was done in a 'Hackathon' way over the course of only 5 days, so there's a lot of room for improvement.
+DISCLAIMER: This application is a PoC and a challenge, it was done in a 'Hackathon' way over the course of only 5 days, so there's a lot of room for improvement. The logger service is not really implemented in the classes and exception handling at the moment is very poor. The focus of the project was creating a Clean Architecture PoC with the functionalities of the challenges.
+
+There are comments all over the code to explain functionalities or design choices.
 
 Clean Architecture NestJs API Typescript w/ Prisma (Postgres as DB) - slot management application for creating appointments with professionals and more...
 
@@ -54,6 +56,70 @@ $ pnpm run start
 
 # watch mode
 $ pnpm run start:dev
+```
+
+## App usage
+
+- You can use something like Postman or Insomnia for interacting with the API (I did not have time for swagger =( )
+
+- Available endpoints are:
+```
+/api/slots
+/api/appointments
+/api/availabilities
+/api/customers
+/api/professionals
+/api/users
+```
+- They all accept only a JSON body type request and the request properties are specified in their respective DTO's 
+- For the get methods all endpoints except /slots accept a empty {} JSON body and return all records or you can pass their properties as filters for querying
+
+- /users - body POST request example:
+```
+{
+	"email": "pro@pro.com",
+	"password": "secret",
+	"role": "professional"
+}
+```
+Possible role values: "professional", "customer", "admin"
+
+- /customers - body POST request example:
+```
+{
+	"userId": "ec424642-4558-4b7e-902a-212b0a88a0c4",
+	"name": "Bob Sinclair"
+}
+```
+
+- /professionals - body POST request example:
+```
+{
+	"userId": "53c9a779-ba8d-4ec4-bfe4-cbe1c2832c44",
+	"field": "Doctor",
+	"name": "Mike Shinoda"
+}
+```
+
+
+- /slots - professionalId is required, but it also accepts a startsAt (not required) property so it filters all slots from startsAt date forward, ex:
+```
+{
+  professionalId: "d0081d0b-8ceb-4292-a37a-053aa840a263",
+  startsAt: "2023-02-10"
+}
+```
+- If no startsAt date is passed, it defaults to startOfToday()
+
+- /availabilities requires the professionalId and a list of availabilities which have the timerange for the available times of that day, ex:
+```
+{
+  professionalId: "d0081d0b-8ceb-4292-a37a-053aa840a263",
+  availabilities: [
+    ["2023-02-13T06:30:00.101Z", "2023-02-13T12:00:00.101Z"],
+    ["2023-02-14T05:30:00.101Z", "2023-02-14T10:30:00.101Z"],
+    ]
+}
 ```
 
 ## Test
