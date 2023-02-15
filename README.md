@@ -23,6 +23,8 @@ Appointments have a 'status' propertie which is enumarated in the appointment-st
 There is a bunch of improvements to be made that are basic of a real world project, like Logging, better Validation Pipes, All Exception Handling, Shadow Database for tests...
 Also I thought that would be nice to have a job scheduler and a ElasticSearch logs database, so that all old appointments could be replicated to this logs DB for further access and the "production" DB had a periodic job to keep it clean.
 
+LUCIDCHART First design thinking: https://lucid.app/documents/view/b177a097-5e08-46ef-bc3d-29578c65a9c0
+
 ## Installation
 
 - Clone the repository
