@@ -1,6 +1,10 @@
-import { Get, Controller, Post, Delete, Body } from '@nestjs/common';
+import { Get, Controller, Post, Delete, Body, Put } from '@nestjs/common';
 
-import { AvailabilityDTO, AvailabilityFilterDTO } from '@/shared/dtos';
+import {
+  AvailabilityFilterDTO,
+  CreateAvailabilityDTO,
+  UpdateAvailabilityDTO,
+} from '@/shared/dtos';
 import { AvailabilityService } from '@/application/services';
 
 import { BaseResponse } from '@/shared/response/base-response';
@@ -23,7 +27,7 @@ export class AvailabilityController {
   }
 
   @Post()
-  async create(@Body() data: AvailabilityDTO): Promise<BaseResponse> {
+  async create(@Body() data: CreateAvailabilityDTO): Promise<BaseResponse> {
     try {
       const savedAvailability = await this.availabilityService.add(data);
       return {
@@ -40,10 +44,24 @@ export class AvailabilityController {
     }
   }
 
-  // @Put(':id')
-  // update(@Param('id') id: string, @Body() user: User): Promise<void> {
-  //   return this.AuthService.update(id, user);
-  // }
+  @Put()
+  async update(@Body() data: UpdateAvailabilityDTO): Promise<BaseResponse> {
+    try {
+      const updatedAvailability = await this.availabilityService.update(data);
+
+      return {
+        status: 200,
+        message: 'Availability updated: ',
+        data: updatedAvailability,
+      };
+    } catch (error) {
+      return {
+        status: 500,
+        message: 'error',
+        data: error.message,
+      };
+    }
+  }
 
   @Delete()
   async delete(@Body('id') id: string): Promise<BaseResponse> {

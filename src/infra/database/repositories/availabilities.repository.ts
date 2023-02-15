@@ -1,6 +1,10 @@
 import { IAvailabilityRepository } from '@/application/ports/availabilities.repository.port';
 import { Availability } from '@/core/entities';
-import { AvailabilityDTO, AvailabilityFilterDTO } from '@/shared/dtos';
+import {
+  AvailabilityDTO,
+  AvailabilityFilterDTO,
+  UpdateAvailabilityDTO,
+} from '@/shared/dtos';
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -64,6 +68,18 @@ export class AvailabilitiesRepository implements IAvailabilityRepository {
               }
             : undefined,
         ],
+      },
+    });
+  }
+
+  public async update(data: UpdateAvailabilityDTO): Promise<AvailabilityDTO> {
+    return await this.prisma.availability.update({
+      where: {
+        id: data.id,
+      },
+      data: {
+        startsAt: data.startsAt,
+        endsAt: data.endsAt,
       },
     });
   }

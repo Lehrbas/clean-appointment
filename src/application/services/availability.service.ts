@@ -2,6 +2,7 @@ import {
   AvailabilityDTO,
   AvailabilityFilterDTO,
   CreateAvailabilityDTO,
+  UpdateAvailabilityDTO,
 } from '@/shared/dtos';
 import { AvailabilityFactory } from '../factories';
 import { IAvailabilityRepository } from '../ports/availabilities.repository.port';
@@ -62,6 +63,10 @@ export class AvailabilityService {
     } catch (error) {
       throw error;
     }
+  }
+
+  public async update(data: UpdateAvailabilityDTO): Promise<AvailabilityDTO> {
+    return await this.availabilitiesRepository.update(data);
   }
 
   public async find(filter: AvailabilityFilterDTO): Promise<AvailabilityDTO[]> {
