@@ -3,6 +3,8 @@ DISCLAIMER: This application is a PoC and a challenge, it was done in a 'Hackath
 
 There are comments all over the code to explain functionalities or design choices.
 
+The project was designed and executed using DDD (Domain Driven Design) approach.
+
 Clean Architecture NestJs API Typescript w/ Prisma (Postgres as DB) - slot management application for creating appointments with professionals and more...
 
 In Clean Architecture we have a decoupled system, layering it in a way that the core (our domain, entities) stays completely independent from
