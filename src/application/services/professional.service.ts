@@ -24,4 +24,8 @@ export class ProfessionalService {
   public async delete(id: string): Promise<ProfessionalDTO> {
     return await this.professionalsRepository.delete(id);
   }
+
+  public async getById(id: string): Promise<ProfessionalDTO> {
+    return await this.professionalsRepository.getById(id);
+  }
 }

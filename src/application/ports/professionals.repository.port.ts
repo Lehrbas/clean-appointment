@@ -10,4 +10,6 @@ export abstract class IProfessionalRepository extends IRepository<
   Professional,
   ProfessionalFilterDTO,
   ProfessionalDTO
-> {}
+> {
+  abstract getById(id: string): Promise<ProfessionalDTO>;
+}

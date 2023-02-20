@@ -2,6 +2,7 @@ import { IsArray, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 import { Type } from 'class-transformer';
 
 export class ProfessionalDTO {
+  public id: string;
   public name: string;
   public field: string;
   public userId?: string;

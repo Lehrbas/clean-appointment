@@ -40,17 +40,13 @@ export class ProfessionalsRepository implements IProfessionalRepository {
     });
   }
 
-  // public async getById(id: string): Promise<ProfessionalDTO> {
-  //   return await this.prisma.professional.findUnique({
-  //     where: {
-  //       id: id,
-  //     },
-  //   });
-  // }
-
-  // public async getAll(): Promise<ProfessionalDTO[]> {
-  //   return await this.prisma.professional.findMany();
-  // }
+  public async getById(id: string): Promise<ProfessionalDTO> {
+    return await this.prisma.professional.findUnique({
+      where: {
+        id: id,
+      },
+    });
+  }
 
   public async delete(id: string): Promise<ProfessionalDTO> {
     return await this.prisma.professional.delete({
